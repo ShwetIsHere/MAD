@@ -1,25 +1,25 @@
-import { Stack, Link } from 'expo-router';
+import { useEffect } from 'react';
+import { useRouter } from 'expo-router';
+import { View, ActivityIndicator } from 'react-native';
+import { useAuth } from '../contexts/AuthContext';
 
-import { View } from 'react-native';
+export default function Index() {
+  const router = useRouter();
+  const { session, loading } = useAuth();
 
-import { Button } from '@/components/Button';
-import { Container } from '@/components/Container';
-import { ScreenContent } from '@/components/ScreenContent';
+  useEffect(() => {
+    if (!loading) {
+      if (session) {
+        router.replace('/(tabs)');
+      } else {
+        router.replace('/(auth)/login');
+      }
+    }
+  }, [session, loading]);
 
-export default function Home() {
   return (
-    <View className={styles.container}>
-      <Stack.Screen options={{ title: 'Home' }} />
-      <Container>
-        <ScreenContent path="app/index.tsx" title="Home"></ScreenContent>
-        <Link href={{ pathname: '/details', params: { name: 'Dan' } }} asChild>
-          <Button title="Show Details" />
-        </Link>
-      </Container>
+    <View className="flex-1 justify-center items-center bg-white">
+      <ActivityIndicator size="large" color="#16a34a" />
     </View>
   );
 }
-
-const styles = {
-  container: 'flex flex-1 bg-white',
-};

@@ -253,3 +253,4 @@ For support, email your-email@example.com or open an issue in the repository.
 
 Built with ❤️ using React Native and Expo
 "# MAD" 
+"# MAD" 
